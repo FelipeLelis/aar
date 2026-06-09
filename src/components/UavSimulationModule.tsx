@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { motorCatalog, propellerCatalog } from '@/data/uavCatalog';
-import { evaluateUav, type UavSolverInput } from '@/domain/uavSolver';
+import { evaluateUav, type UavResult, type UavSolverInput } from '@/domain/uavSolver';
 
 const initialInput: UavSolverInput = {
   massKg: 2.4,
@@ -12,6 +12,115 @@ const initialInput: UavSolverInput = {
   thrustMarginPct: 35,
   cruisePowerFactor: 0.72,
 };
+
+type UavChartsProps = {
+  results: UavResult[];
+};
+
+type UavSceneProps = {
+  input: UavSolverInput;
+  best?: UavResult;
+};
+
+function UavRankingCharts({ results }: UavChartsProps) {
+  const chartResults = results.slice(0, 5);
+  const maxEndurance = Math.max(...chartResults.map((result) => result.enduranceMin), 1);
+  const maxPower = Math.max(...chartResults.map((result) => result.totalPowerW), 1);
+  const width = 520;
+  const rowHeight = 34;
+  const chartHeight = chartResults.length * rowHeight + 28;
+
+  return (
+    <div className="uav-visual-card">
+      <div className="uav-visual-head">
+        <div>
+          <span>gráficos</span>
+          <h3>Ranking por autonomia e potência</h3>
+        </div>
+        <strong>{chartResults.filter((result) => result.feasible).length}/{chartResults.length} viáveis</strong>
+      </div>
+      <svg className="uav-chart" viewBox={`0 0 ${width} ${chartHeight}`} role="img" aria-label="Ranking UAV por autonomia e potência">
+        {chartResults.map((result, index) => {
+          const y = 20 + index * rowHeight;
+          const enduranceWidth = (result.enduranceMin / maxEndurance) * 190;
+          const powerWidth = (result.totalPowerW / maxPower) * 150;
+
+          return (
+            <g key={result.key}>
+              <text x="0" y={y + 10} className="uav-chart-label">
+                {index + 1}. {result.propeller}
+              </text>
+              <rect x="180" y={y} width="190" height="10" rx="5" className="uav-chart-track" />
+              <rect x="180" y={y} width={enduranceWidth} height="10" rx="5" className="uav-chart-endurance" />
+              <text x="378" y={y + 10} className="uav-chart-value">
+                {result.enduranceMin.toFixed(1)} min
+              </text>
+              <rect x="180" y={y + 15} width="150" height="8" rx="4" className="uav-chart-track" />
+              <rect x="180" y={y + 15} width={powerWidth} height="8" rx="4" className="uav-chart-power" />
+              <text x="338" y={y + 23} className="uav-chart-value muted">
+                {result.totalPowerW.toFixed(0)} W
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function Uav3DScene({ input, best }: UavSceneProps) {
+  const rotorSlots = Array.from({ length: input.rotorCount }, (_, index) => index);
+  const throttle = Math.min(Math.max(best?.throttlePct ?? 0, 0), 100);
+  const battery = Math.max(0, 100 - input.reservePct);
+  const sceneState = best?.feasible ? 'uav-state-ok' : 'uav-state-alert';
+
+  return (
+    <div className={`uav-visual-card uav-3d-card ${sceneState}`}>
+      <div className="uav-visual-head">
+        <div>
+          <span>3D</span>
+          <h3>Estado físico do UAV</h3>
+        </div>
+        <strong>{throttle.toFixed(0)}% throttle</strong>
+      </div>
+
+      <div className="uav-scene" aria-label="Cena 3D do UAV">
+        <div className="uav-ground" />
+        <div className="uav-frame-3d">
+          <div className="uav-body-3d">
+            <span />
+          </div>
+          {rotorSlots.map((slot) => {
+            const angle = (360 / input.rotorCount) * slot;
+            return (
+              <div className="uav-arm-3d" key={slot} style={{ transform: `rotateZ(${angle}deg)` }}>
+                <div className="uav-rotor-3d">
+                  <span />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="uav-thrust-column" style={{ height: `${42 + throttle * 0.55}%` }} />
+      </div>
+
+      <div className="uav-scene-metrics">
+        <div>
+          <span>Bateria útil</span>
+          <strong>{battery.toFixed(0)}%</strong>
+        </div>
+        <div>
+          <span>Margem</span>
+          <strong>{best?.marginPct.toFixed(0)}%</strong>
+        </div>
+        <div>
+          <span>Rotores</span>
+          <strong>{input.rotorCount}</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function UavSimulationModule() {
   const [input, setInput] = useState(initialInput);
@@ -95,6 +204,11 @@ export function UavSimulationModule() {
             </div>
           </dl>
         </div>
+      </div>
+
+      <div className="uav-visual-grid">
+        <UavRankingCharts results={visibleResults} />
+        <Uav3DScene input={input} best={best} />
       </div>
 
       <div className="uav-results">

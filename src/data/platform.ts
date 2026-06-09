@@ -38,7 +38,7 @@ export const roadmap = [
   },
   {
     title: 'Visualização',
-    text: 'Cena 3D segue no legado; a próxima etapa é conectá-la aos estados do novo motor AAR.',
+    text: 'O UAV já possui gráficos e cena 3D própria; a próxima etapa é conectar a cena 3D AAR aos eventos do novo motor.',
   },
   {
     title: 'Ponte PyThrust',

@@ -646,6 +646,239 @@ select {
   margin: 3px 0 0;
 }
 
+.uav-visual-grid {
+  background: #fff;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 0.85fr);
+  padding: 12px;
+}
+
+.uav-visual-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  min-height: 280px;
+  padding: 12px;
+}
+
+.uav-visual-head {
+  align-items: start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.uav-visual-head span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.uav-visual-head h3 {
+  color: var(--brand-blue-700);
+  font-size: 1rem;
+  margin: 4px 0 0;
+}
+
+.uav-visual-head strong {
+  color: var(--brand-blue);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.uav-chart {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.uav-chart-label {
+  fill: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.uav-chart-value {
+  fill: var(--brand-blue-700);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.uav-chart-value.muted {
+  fill: var(--muted);
+}
+
+.uav-chart-track {
+  fill: #e8eef5;
+}
+
+.uav-chart-endurance {
+  fill: var(--brand-blue);
+}
+
+.uav-chart-power {
+  fill: var(--brand-gold);
+}
+
+.uav-3d-card {
+  overflow: hidden;
+}
+
+.uav-scene {
+  align-items: center;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef4fa 100%);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: grid;
+  min-height: 178px;
+  overflow: hidden;
+  perspective: 760px;
+  place-items: center;
+  position: relative;
+}
+
+.uav-ground {
+  background: rgba(0, 63, 125, 0.08);
+  border: 1px solid rgba(0, 63, 125, 0.12);
+  border-radius: 50%;
+  bottom: 20px;
+  height: 46px;
+  position: absolute;
+  transform: rotateX(66deg);
+  width: 76%;
+}
+
+.uav-frame-3d {
+  height: 106px;
+  position: relative;
+  transform: rotateX(60deg) rotateZ(-24deg);
+  transform-style: preserve-3d;
+  width: 106px;
+  z-index: 2;
+}
+
+.uav-body-3d {
+  background: var(--brand-blue);
+  border: 2px solid #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgba(0, 63, 125, 0.18);
+  height: 42px;
+  left: 32px;
+  position: absolute;
+  top: 32px;
+  transform: translateZ(14px);
+  width: 42px;
+}
+
+.uav-body-3d span {
+  background: var(--brand-gold);
+  border-radius: 999px;
+  display: block;
+  height: 8px;
+  margin: 17px auto;
+  width: 22px;
+}
+
+.uav-arm-3d {
+  height: 8px;
+  left: 51px;
+  position: absolute;
+  top: 49px;
+  transform-origin: 2px 4px;
+  transform-style: preserve-3d;
+  width: 58px;
+}
+
+.uav-arm-3d::before {
+  background: #52677f;
+  border-radius: 999px;
+  content: "";
+  display: block;
+  height: 5px;
+  margin-top: 1px;
+  width: 48px;
+}
+
+.uav-rotor-3d {
+  background: #fff;
+  border: 2px solid var(--brand-blue);
+  border-radius: 50%;
+  height: 30px;
+  position: absolute;
+  right: -6px;
+  top: -11px;
+  transform: translateZ(8px);
+  width: 30px;
+}
+
+.uav-rotor-3d span,
+.uav-rotor-3d::after {
+  background: rgba(0, 63, 125, 0.42);
+  border-radius: 999px;
+  content: "";
+  display: block;
+  height: 4px;
+  left: 3px;
+  position: absolute;
+  top: 11px;
+  width: 20px;
+}
+
+.uav-rotor-3d::after {
+  transform: rotate(90deg);
+}
+
+.uav-thrust-column {
+  background: linear-gradient(180deg, rgba(31, 143, 95, 0.22), rgba(31, 143, 95, 0.02));
+  border-radius: 999px 999px 0 0;
+  bottom: 18px;
+  position: absolute;
+  transform: rotateX(64deg);
+  transform-origin: bottom;
+  transition: height 160ms ease;
+  width: 64px;
+  z-index: 1;
+}
+
+.uav-state-alert .uav-thrust-column {
+  background: linear-gradient(180deg, rgba(189, 45, 54, 0.22), rgba(189, 45, 54, 0.02));
+}
+
+.uav-scene-metrics {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.uav-scene-metrics div {
+  background: var(--panel-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.uav-scene-metrics span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.uav-scene-metrics strong {
+  color: var(--brand-blue);
+  display: block;
+  margin-top: 3px;
+}
+
 .uav-results {
   background: #fff;
   border: 1px solid var(--line);
@@ -748,7 +981,8 @@ select {
   }
 
   .uav-console,
-  .uav-form {
+  .uav-form,
+  .uav-visual-grid {
     grid-template-columns: 1fr;
   }
 
