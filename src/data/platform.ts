@@ -5,29 +5,29 @@ export const aarCapabilities = [
 ];
 
 export const integrationMap = [
-  ['Missao', 'define', 'perfil AAR ou UAV'],
-  ['Energia', 'limita', 'combustivel, bateria e reservas'],
-  ['Fila / carga', 'consome', 'tempo, potencia e margem operacional'],
-  ['PyThrust', 'otimiza', 'motor, helice, bateria e catalogos'],
-  ['AAR Engine', 'simula', 'ciranda, pausas, bingo e threshold'],
+  ['Missão', 'define', 'perfil AAR ou UAV'],
+  ['Energia', 'limita', 'combustível, bateria e reservas'],
+  ['Fila / carga', 'consome', 'tempo, potência e margem operacional'],
+  ['PyThrust', 'otimiza', 'motor, hélice, bateria e catálogos'],
+  ['Módulo AAR', 'simula', 'ciranda, pausas, bingo e threshold'],
 ];
 
 export const pythrustModules = [
   {
     title: 'Solvers de desempenho',
-    text: 'Modelos em regime permanente para estimar empuxo, torque, potencia, eficiencia e limites eletricos.',
+    text: 'Modelos em regime permanente para estimar empuxo, torque, potência, eficiência e limites elétricos.',
   },
   {
-    title: 'Calibracao automatica',
-    text: 'Ajuste de parametros para aproximar o modelo aos dados de teste do fabricante.',
+    title: 'Calibração automática',
+    text: 'Ajuste de parâmetros para aproximar o modelo aos dados de teste do fabricante.',
   },
   {
-    title: 'Busca em catalogos',
-    text: 'Mapeia projeto teorico em motores brushless e helices reais a partir dos bancos do PyThrust.',
+    title: 'Busca em catálogos',
+    text: 'Mapeia projeto teórico em motores brushless e hélices reais a partir dos bancos do PyThrust.',
   },
   {
     title: 'OpenMDAO / MDO',
-    text: 'Permite co-design multidisciplinar com objetivos e restricoes de missao.',
+    text: 'Permite co-design multidisciplinar com objetivos e restrições de missão.',
   },
 ];
 
