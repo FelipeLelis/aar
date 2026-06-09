@@ -769,6 +769,305 @@
     background: var(--surface); border: 1px dashed var(--border); border-radius: 6px;
     padding: 16px 18px; color: var(--text-dim); font-size: 13px; line-height: 1.6; margin-bottom: 18px;
   }
+
+  /* ====== Clean cockpit redesign pass ====== */
+  :root {
+    --bg: #080b10;
+    --surface: #11161d;
+    --surface-2: #171e27;
+    --surface-3: #202935;
+    --border: #2a3340;
+    --border-soft: rgba(154, 170, 190, 0.16);
+    --text: #edf1f5;
+    --text-dim: #9aa8b8;
+    --amber: #f2b84b;
+    --cyan: #55c7e8;
+    --green: #69d289;
+    --red: #ff6b6b;
+    --magenta: #b78cff;
+    --yellow: #eadf72;
+  }
+  html { scrollbar-gutter: stable; }
+  body {
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(180deg, rgba(20,27,36,0.95) 0%, rgba(8,11,16,1) 40%, rgba(8,11,16,1) 100%),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255,255,255,0.024) 1px, transparent 1px);
+    background-size: auto, 48px 48px, 48px 48px;
+  }
+  .container {
+    max-width: 1640px;
+    padding: 22px clamp(16px, 2.2vw, 34px) 28px;
+  }
+  header {
+    align-items: center;
+    background: rgba(17,22,29,0.72);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    padding: 16px 18px;
+  }
+  h1 {
+    font-size: clamp(19px, 1.45vw, 24px);
+    letter-spacing: 0;
+  }
+  h1 .accent { display: none; }
+  .subtitle {
+    background: rgba(105,210,137,0.09);
+    border: 1px solid rgba(105,210,137,0.28);
+    border-radius: 999px;
+    color: var(--green);
+    letter-spacing: 1px;
+    padding: 7px 11px;
+    white-space: nowrap;
+  }
+  .tabs {
+    background: rgba(17,22,29,0.52);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    gap: 6px;
+    margin-bottom: 18px;
+    padding: 5px;
+  }
+  .tab-btn {
+    border: 0;
+    border-radius: 6px;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    margin: 0;
+    padding: 10px 16px;
+  }
+  .tab-btn.active {
+    background: var(--surface-3);
+    border-bottom-color: transparent;
+    color: var(--text);
+  }
+  main {
+    align-items: start;
+    grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+    gap: 18px;
+  }
+  main > div:first-child {
+    max-height: calc(100vh - 22px);
+    overflow: auto;
+    padding-right: 3px;
+    position: sticky;
+    top: 14px;
+  }
+  @media (max-width: 1100px) {
+    main > div:first-child {
+      max-height: none;
+      overflow: visible;
+      position: static;
+    }
+  }
+  .panel,
+  .chart-wrapper,
+  .event-log,
+  .empty-hint {
+    background: rgba(17,22,29,0.88);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    box-shadow: none;
+  }
+  .panel { padding: 16px; }
+  .panel + .panel { margin-top: 12px; }
+  .panel h2 {
+    border-bottom-color: var(--border-soft);
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+    padding-bottom: 9px;
+  }
+  .panel h2::before {
+    border-radius: 2px;
+    box-shadow: none;
+    height: 10px;
+    width: 3px;
+  }
+  .collapsible.collapsed {
+    background: rgba(17,22,29,0.58);
+  }
+  .field { margin-bottom: 9px; }
+  .field label,
+  .col-label {
+    color: #aab5c2;
+    font-size: 9px;
+    letter-spacing: 0.7px;
+  }
+  .field input,
+  .field select,
+  select.unit-select,
+  .input-with-unit select,
+  .viz-controls select,
+  .display-unit-select,
+  .suggest-folga input,
+  .per-aircraft-row input,
+  .per-aircraft-row select {
+    background: rgba(8,11,16,0.58);
+    border-color: var(--border-soft);
+    border-radius: 6px;
+    min-height: 34px;
+  }
+  .field input:focus,
+  .field select:focus,
+  select.unit-select:focus {
+    border-color: rgba(85,199,232,0.82);
+    box-shadow: 0 0 0 3px rgba(85,199,232,0.1);
+  }
+  .unit-bar,
+  .tolerance-block,
+  .per-aircraft-list,
+  .sub-block,
+  .suggest-detail {
+    background: rgba(23,30,39,0.7);
+    border-color: var(--border-soft);
+    border-radius: 8px;
+  }
+  .sub-block summary,
+  .sub-block .sub-header {
+    letter-spacing: 0.8px;
+    padding: 10px 12px;
+  }
+  .toggle-group {
+    background: rgba(8,11,16,0.52);
+    border-color: var(--border-soft);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .toggle-group button {
+    border-radius: 6px;
+    letter-spacing: 0.6px;
+    min-height: 32px;
+  }
+  .toggle-group button.active {
+    background: #d9e8ef;
+    color: #11161d;
+  }
+  .btn,
+  .btn-secondary,
+  .btn-scenario,
+  .btn-suggest,
+  .viz-controls button {
+    border-radius: 7px;
+    box-shadow: none;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .btn {
+    background: #e8f2f6;
+    color: #101820;
+  }
+  .btn-secondary,
+  .btn-scenario {
+    background: var(--surface-3);
+    color: var(--text);
+  }
+  .btn:hover,
+  .btn-secondary:hover,
+  .btn-scenario:hover,
+  .btn-suggest:hover,
+  .viz-controls button:hover {
+    box-shadow: none;
+    filter: brightness(1.08);
+  }
+  .metrics {
+    grid-template-columns: repeat(5, minmax(122px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 1320px) { .metrics { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .metrics { grid-template-columns: 1fr 1fr; } }
+  .metric {
+    background: rgba(17,22,29,0.82);
+    border-color: var(--border-soft);
+    border-left-width: 2px;
+    border-radius: 8px;
+    min-height: 78px;
+    padding: 11px 12px;
+  }
+  .metric .label {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    min-height: 24px;
+  }
+  .metric .value {
+    font-size: clamp(18px, 1.5vw, 24px);
+    letter-spacing: 0;
+  }
+  #vizPanel {
+    background:
+      linear-gradient(180deg, rgba(27,35,46,0.82), rgba(12,16,23,0.94)),
+      linear-gradient(90deg, rgba(85,199,232,0.08), transparent 48%);
+    padding: 14px;
+  }
+  #vizPanel h2 { margin-bottom: 10px; }
+  .viz-controls {
+    background: rgba(8,11,16,0.38);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  .viz-controls button {
+    min-height: 32px;
+    padding: 6px 12px;
+  }
+  .viz-controls .viz-time {
+    background: rgba(8,11,16,0.48);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    min-width: 104px;
+    padding: 7px 8px;
+  }
+  canvas#vizCanvas {
+    background: #080b10;
+    border-color: rgba(85,199,232,0.2);
+    border-radius: 8px;
+    height: clamp(380px, 48vh, 560px);
+    max-height: none;
+  }
+  .chart-wrapper {
+    height: 430px;
+    padding: 16px;
+  }
+  .study-grid {
+    grid-template-columns: minmax(260px, 0.95fr) minmax(320px, 1.05fr);
+  }
+  .study-card {
+    background: transparent;
+    border-color: var(--border-soft);
+    border-radius: 8px;
+  }
+  .study-item {
+    background: rgba(8,11,16,0.3);
+    border-radius: 0 6px 6px 0;
+    padding: 7px 9px;
+  }
+  .ontology-row {
+    grid-template-columns: minmax(112px, 0.8fr) 72px minmax(150px, 1.2fr);
+  }
+  .ontology-node {
+    background: rgba(85,199,232,0.08);
+    border-color: rgba(85,199,232,0.2);
+    border-radius: 6px;
+  }
+  .ontology-node.alt {
+    background: rgba(242,184,75,0.08);
+    border-color: rgba(242,184,75,0.2);
+  }
+  .event-log {
+    max-height: 340px;
+  }
+  footer {
+    background: rgba(17,22,29,0.45);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    margin-top: 18px;
+    padding: 13px;
+  }
 </style>
 </head>
 <body>
@@ -2437,39 +2736,89 @@ function drawTriangle(ctx, cx, cy, size, color, opacity) {
 }
 
 function project3D(point, W, H) {
-  const cam = { x: 0, y: -360, z: 210 };
-  const focal = Math.min(W, H) * 1.05;
+  const cam = { x: 0, y: -440, z: 165 };
+  const focal = Math.min(W, H) * 1.22;
   const depth = Math.max(80, point.y - cam.y);
   const scale = focal / (focal + depth);
   return {
     x: W * 0.5 + (point.x - cam.x) * scale,
-    y: H * 0.52 - (point.z - cam.z) * scale + point.y * 0.11 * scale,
+    y: H * 0.48 - (point.z - cam.z) * scale + point.y * 0.105 * scale,
     scale,
     depth
   };
 }
 
+function hexToRgb(hex) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return m ? { r: parseInt(m[1], 16), g: parseInt(m[2], 16), b: parseInt(m[3], 16) } : { r: 85, g: 199, b: 232 };
+}
+
+function shade(hex, amount) {
+  const c = hexToRgb(hex);
+  const mix = amount > 0 ? 255 : 0;
+  const t = Math.abs(amount);
+  return `rgb(${Math.round(c.r + (mix - c.r) * t)}, ${Math.round(c.g + (mix - c.g) * t)}, ${Math.round(c.b + (mix - c.b) * t)})`;
+}
+
+function drawSimBackdrop(ctx, W, H, time) {
+  const sky = ctx.createLinearGradient(0, 0, 0, H);
+  sky.addColorStop(0, '#111a26');
+  sky.addColorStop(0.48, '#0d141f');
+  sky.addColorStop(0.49, '#0b1017');
+  sky.addColorStop(1, '#06080d');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, H);
+
+  const horizon = H * 0.48;
+  ctx.strokeStyle = 'rgba(85,199,232,0.16)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, horizon);
+  ctx.lineTo(W, horizon);
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.035)';
+  ctx.font = "10px 'IBM Plex Mono', monospace";
+  ctx.textAlign = 'right';
+  ctx.fillText('AAR SIM ENGINE', W - 14, horizon - 10);
+
+  const sweep = (time * 24) % W;
+  const scan = ctx.createLinearGradient(sweep - 160, 0, sweep, 0);
+  scan.addColorStop(0, 'rgba(85,199,232,0)');
+  scan.addColorStop(1, 'rgba(85,199,232,0.07)');
+  ctx.fillStyle = scan;
+  ctx.fillRect(Math.max(0, sweep - 160), 0, 160, H);
+}
+
 function drawGroundGrid(ctx, W, H, time) {
   ctx.save();
   ctx.lineWidth = 1;
-  for (let y = -180; y <= 520; y += 70) {
-    const a = project3D({ x: -460, y: y + (time * 8) % 70, z: -42 }, W, H);
-    const b = project3D({ x: 460, y: y + (time * 8) % 70, z: -42 }, W, H);
-    ctx.strokeStyle = `rgba(77,219,255,${0.08 + a.scale * 0.08})`;
+  for (let y = -220; y <= 680; y += 62) {
+    const a = project3D({ x: -620, y: y + (time * 10) % 62, z: -52 }, W, H);
+    const b = project3D({ x: 620, y: y + (time * 10) % 62, z: -52 }, W, H);
+    ctx.strokeStyle = `rgba(85,199,232,${0.045 + a.scale * 0.1})`;
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
     ctx.stroke();
   }
-  for (let x = -420; x <= 420; x += 70) {
-    const a = project3D({ x, y: -180, z: -42 }, W, H);
-    const b = project3D({ x, y: 540, z: -42 }, W, H);
-    ctx.strokeStyle = 'rgba(255,255,255,0.045)';
+  for (let x = -560; x <= 560; x += 70) {
+    const a = project3D({ x, y: -220, z: -52 }, W, H);
+    const b = project3D({ x, y: 700, z: -52 }, W, H);
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
     ctx.beginPath();
     ctx.moveTo(a.x, a.y);
     ctx.lineTo(b.x, b.y);
     ctx.stroke();
   }
+  const centerA = project3D({ x: 0, y: -200, z: -51 }, W, H);
+  const centerB = project3D({ x: 0, y: 700, z: -51 }, W, H);
+  ctx.strokeStyle = 'rgba(242,184,75,0.2)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(centerA.x, centerA.y);
+  ctx.lineTo(centerB.x, centerB.y);
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -2479,39 +2828,69 @@ function drawAircraft3D(ctx, W, H, pos, size, color, label, opts = {}) {
   ctx.save();
   ctx.globalAlpha = opts.opacity ?? 1;
 
-  ctx.fillStyle = 'rgba(0,0,0,0.24)';
+  ctx.fillStyle = `rgba(0,0,0,${0.16 + Math.min(0.22, p.scale * 0.18)})`;
   ctx.beginPath();
-  ctx.ellipse(p.x, p.y + s * 1.15, s * 1.35, s * 0.28, 0, 0, Math.PI * 2);
+  ctx.ellipse(p.x, p.y + s * 1.22, s * 1.7, s * 0.34, 0, 0, Math.PI * 2);
   ctx.fill();
 
   ctx.translate(p.x, p.y);
   ctx.rotate(opts.roll || 0);
-  ctx.fillStyle = color;
-  ctx.strokeStyle = 'rgba(232,234,237,0.42)';
+  ctx.strokeStyle = 'rgba(237,241,245,0.36)';
   ctx.lineWidth = Math.max(1, 1.2 * p.scale);
+
+  // Fuselage and faceted wings: deliberately low-poly, like a lightweight sim asset.
+  ctx.fillStyle = shade(color, -0.08);
   ctx.beginPath();
-  ctx.moveTo(s * 1.3, 0);
-  ctx.lineTo(-s * 0.55, -s * 0.28);
-  ctx.lineTo(-s * 0.95, -s * 0.9);
-  ctx.lineTo(-s * 0.18, -s * 0.42);
-  ctx.lineTo(s * 0.32, -s * 0.22);
-  ctx.lineTo(s * 0.32, s * 0.22);
-  ctx.lineTo(-s * 0.18, s * 0.42);
-  ctx.lineTo(-s * 0.95, s * 0.9);
-  ctx.lineTo(-s * 0.55, s * 0.28);
+  ctx.moveTo(s * 1.42, 0);
+  ctx.lineTo(s * 0.42, -s * 0.2);
+  ctx.lineTo(-s * 0.78, -s * 0.15);
+  ctx.lineTo(-s * 1.12, 0);
+  ctx.lineTo(-s * 0.78, s * 0.15);
+  ctx.lineTo(s * 0.42, s * 0.2);
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
-  ctx.fillStyle = 'rgba(255,255,255,0.34)';
-  ctx.fillRect(-s * 0.18, -s * 0.1, s * 0.52, s * 0.2);
+
+  ctx.fillStyle = shade(color, 0.16);
+  ctx.beginPath();
+  ctx.moveTo(s * 0.28, -s * 0.15);
+  ctx.lineTo(-s * 0.68, -s * 1.02);
+  ctx.lineTo(-s * 0.22, -s * 0.2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(s * 0.28, s * 0.15);
+  ctx.lineTo(-s * 0.68, s * 1.02);
+  ctx.lineTo(-s * 0.22, s * 0.2);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = shade(color, -0.18);
+  ctx.beginPath();
+  ctx.moveTo(-s * 0.78, -s * 0.14);
+  ctx.lineTo(-s * 1.28, -s * 0.58);
+  ctx.lineTo(-s * 1.04, -s * 0.04);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-s * 0.78, s * 0.14);
+  ctx.lineTo(-s * 1.28, s * 0.58);
+  ctx.lineTo(-s * 1.04, s * 0.04);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.46)';
+  ctx.beginPath();
+  ctx.roundRect(s * 0.16, -s * 0.08, s * 0.36, s * 0.16, Math.max(2, s * 0.04));
+  ctx.fill();
   ctx.restore();
 
   if (label) {
     ctx.save();
     ctx.fillStyle = opts.labelColor || '#e8eaed';
-    ctx.font = `bold ${Math.max(8, 11 * p.scale)}px 'IBM Plex Mono', monospace`;
+    ctx.font = `bold ${Math.max(8, 12 * p.scale)}px 'IBM Plex Mono', monospace`;
     ctx.textAlign = 'center';
-    ctx.fillText(label, p.x, p.y + s * 1.95);
+    ctx.fillText(label, p.x, p.y + s * 2.08);
     ctx.restore();
   }
   return p;
@@ -2549,6 +2928,7 @@ function drawViz() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const rect = canvas.getBoundingClientRect();
+  if (!Number.isFinite(rect.width) || !Number.isFinite(rect.height) || rect.width <= 0 || rect.height <= 0) return;
   const dpr = window.devicePixelRatio || 1;
   if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
     canvas.width = rect.width * dpr;
@@ -2557,12 +2937,7 @@ function drawViz() {
   }
   const W = rect.width, H = rect.height;
 
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, '#07101c');
-  grad.addColorStop(0.58, '#101826');
-  grad.addColorStop(1, '#070b12');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
+  drawSimBackdrop(ctx, W, H, vizTime);
   drawGroundGrid(ctx, W, H, vizTime);
 
   if (!lastResult || !lastParams) {
@@ -2582,8 +2957,8 @@ function drawViz() {
   const wingPct = Math.max(0, Math.min(1, wing / Math.max(lastParams.wingMax, 1)));
   const tankerPos = {
     x: Math.sin(vizTime * 0.05) * 12,
-    y: 60 + Math.sin(vizTime * 0.025) * 16,
-    z: 34 + Math.sin(vizTime * 0.06) * 4
+    y: 32 + Math.sin(vizTime * 0.025) * 18,
+    z: 48 + Math.sin(vizTime * 0.06) * 4
   };
 
   // Orbit rails for waiting and completed aircraft.
@@ -2593,7 +2968,7 @@ function drawViz() {
   for (let r = 0; r < 2; r++) {
     let prev = null;
     for (let a = 0; a <= Math.PI * 2 + 0.01; a += 0.18) {
-      const point = project3D({ x: Math.cos(a) * (230 + r * 64), y: 210 + Math.sin(a) * 88, z: -22 }, W, H);
+      const point = project3D({ x: Math.cos(a) * (250 + r * 70), y: 230 + Math.sin(a) * 98, z: -18 }, W, H);
       if (prev) {
         ctx.beginPath();
         ctx.moveTo(prev.x, prev.y);
@@ -2612,15 +2987,15 @@ function drawViz() {
     if (statuses[i] === 'waiting') {
       const order = i + vizTime * 0.035;
       const angle = order * 0.82;
-      const radius = 260 + (i % 2) * 52;
+      const radius = 280 + (i % 2) * 58;
       aircraftDraw.push({
         idx: i,
         pos: {
-          x: Math.cos(angle) * radius + 165,
-          y: 245 + Math.sin(angle) * 95,
-          z: -4 + Math.sin(angle * 1.7) * 10
+          x: Math.cos(angle) * radius + 150,
+          y: 250 + Math.sin(angle) * 106,
+          z: 2 + Math.sin(angle * 1.7) * 12
         },
-        size: 28,
+        size: 31,
         opacity: visitsArr[i] >= 1 ? 1 : 0.78,
         labelColor: visitsArr[i] >= 1 ? '#ffe05e' : '#bcc4d2',
         suffix: visitsArr[i] >= 1 ? '↻' : ''
@@ -2628,8 +3003,8 @@ function drawViz() {
     } else if (statuses[i] === 'done') {
       aircraftDraw.push({
         idx: i,
-        pos: { x: -260 - (i % 6) * 38, y: 250 + Math.floor(i / 6) * 46, z: -18 },
-        size: 23,
+        pos: { x: -285 - (i % 6) * 42, y: 260 + Math.floor(i / 6) * 48, z: -12 },
+        size: 25,
         opacity: 0.34,
         labelColor: 'rgba(94,224,127,0.82)',
         suffix: '✓'
@@ -2656,12 +3031,12 @@ function drawViz() {
 
   let currentPos = null;
   if (currentIdx !== null && currentIdx !== undefined && statuses[currentIdx] === 'refueling') {
-    currentPos = { x: -118, y: 112, z: 2 + Math.sin(vizTime * 0.12) * 2 };
+    currentPos = { x: -132, y: 96, z: 18 + Math.sin(vizTime * 0.12) * 2 };
     const isPausedAtFrame = wing <= lastParams.wingPause + 1e-6;
-    const line = draw3DLine(ctx, W, H, { ...tankerPos, x: tankerPos.x - 28, z: tankerPos.z - 4 }, { ...currentPos, x: currentPos.x + 30 }, isPausedAtFrame ? 'rgba(255,90,90,0.72)' : 'rgba(94,224,127,0.9)', 3, isPausedAtFrame);
+    const line = draw3DLine(ctx, W, H, { ...tankerPos, x: tankerPos.x - 36, z: tankerPos.z - 4 }, { ...currentPos, x: currentPos.x + 34 }, isPausedAtFrame ? 'rgba(255,107,107,0.72)' : 'rgba(105,210,137,0.95)', 3.4, isPausedAtFrame);
     if (!isPausedAtFrame) {
       const pulse = (Math.sin(vizTime * 4) + 1) * 0.5;
-      ctx.fillStyle = `rgba(94,224,127,${0.42 + pulse * 0.48})`;
+      ctx.fillStyle = `rgba(105,210,137,${0.42 + pulse * 0.5})`;
       ctx.beginPath();
       ctx.arc(line.pa.x + (line.pb.x - line.pa.x) * pulse, line.pa.y + (line.pb.y - line.pa.y) * pulse, 4 + pulse * 2, 0, Math.PI * 2);
       ctx.fill();
@@ -2672,32 +3047,40 @@ function drawViz() {
     });
   }
 
-  drawAircraft3D(ctx, W, H, tankerPos, 48, '#ffb13b', 'TANKER', { labelColor: '#ffb13b' });
+  drawAircraft3D(ctx, W, H, tankerPos, 58, '#f2b84b', 'TANKER', { labelColor: '#f2b84b' });
 
   // Wing reservoir ring around tanker.
   const tankerScreen = project3D(tankerPos, W, H);
   ctx.save();
-  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-  ctx.lineWidth = 5 * tankerScreen.scale;
+  ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+  ctx.lineWidth = 6 * tankerScreen.scale;
   ctx.beginPath();
-  ctx.arc(tankerScreen.x, tankerScreen.y - 32 * tankerScreen.scale, 28 * tankerScreen.scale, -Math.PI / 2, Math.PI * 1.5);
+  ctx.arc(tankerScreen.x, tankerScreen.y - 42 * tankerScreen.scale, 34 * tankerScreen.scale, -Math.PI / 2, Math.PI * 1.5);
   ctx.stroke();
-  ctx.strokeStyle = wingPct <= 0.22 ? '#ff5a5a' : '#4ddbff';
+  ctx.strokeStyle = wingPct <= 0.22 ? '#ff6b6b' : '#55c7e8';
   ctx.beginPath();
-  ctx.arc(tankerScreen.x, tankerScreen.y - 32 * tankerScreen.scale, 28 * tankerScreen.scale, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * wingPct);
+  ctx.arc(tankerScreen.x, tankerScreen.y - 42 * tankerScreen.scale, 34 * tankerScreen.scale, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * wingPct);
   ctx.stroke();
   ctx.restore();
 
-  // HUD top-left
-  ctx.fillStyle = '#8b95a7';
+  // Compact cockpit HUD.
+  ctx.save();
+  ctx.fillStyle = 'rgba(8,11,16,0.56)';
+  ctx.strokeStyle = 'rgba(154,170,190,0.18)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(12, 12, 188, lastParams.toleranceEnabled ? 82 : 66, 8);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = '#9aa8b8';
   ctx.font = "10px 'IBM Plex Mono', monospace";
   ctx.textAlign = 'left';
-  ctx.fillText(`t = ${vizTime.toFixed(1)} min`, 10, 16);
-  ctx.fillText(`pod: ${lastResult.hist.pod[idx].toFixed(0)} kg`, 10, 30);
-  ctx.fillStyle = '#4ddbff';
-  ctx.fillText(`asa: ${lastResult.hist.wing[idx].toFixed(0)} kg`, 10, 44);
-  ctx.fillStyle = '#bcc4d2';
-  ctx.fillText(`X/Y: ${lastParams.flowX.toFixed(0)} / ${lastParams.flowY.toFixed(0)} kg/min`, 10, 58);
+  ctx.fillText(`T+ ${vizTime.toFixed(1)} min`, 24, 31);
+  ctx.fillText(`POD ${lastResult.hist.pod[idx].toFixed(0)} kg`, 24, 47);
+  ctx.fillStyle = '#55c7e8';
+  ctx.fillText(`ASA ${lastResult.hist.wing[idx].toFixed(0)} kg`, 24, 63);
+  ctx.fillStyle = '#edf1f5';
+  ctx.fillText(`X/Y ${lastParams.flowX.toFixed(0)} / ${lastParams.flowY.toFixed(0)} kg/min`, 24, 79);
   // Reconnections so far (count of reentries among aircraft up to this frame)
   if (lastParams.toleranceEnabled) {
     let recSoFar = 0;
@@ -2707,9 +3090,10 @@ function drawViz() {
       else if (statuses[i] === 'refueling' && v >= 2) recSoFar += (v - 1);
       else if (statuses[i] === 'done' && v >= 2) recSoFar += (v - 1);
     }
-    ctx.fillStyle = '#ffe05e';
-    ctx.fillText(`reconexões: ${recSoFar}`, 10, 72);
+    ctx.fillStyle = '#eadf72';
+    ctx.fillText(`RECONEXÕES ${recSoFar}`, 24, 95);
   }
+  ctx.restore();
 
   // Status badge top-right
   let statusText = '— em operação —';
