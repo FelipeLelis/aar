@@ -8,7 +8,7 @@ export default function UavPage() {
     <main className="app-shell">
       <AppHeader />
 
-      <section className="console-header">
+      <section className="module-page-header">
         <div>
           <p className="eyebrow">Módulo UAV / PyThrust</p>
           <h2>Propulsão elétrica e missão UAV</h2>

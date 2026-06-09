@@ -7,7 +7,7 @@ export default function SimulatorPage() {
     <main className="app-shell">
       <AppHeader />
 
-      <section className="console-header">
+      <section className="module-page-header">
         <div>
           <p className="eyebrow">Módulo AAR</p>
           <h2>Reabastecimento aéreo em ciranda</h2>

@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { useMemo, useState } from 'react';
 import { motorCatalog, propellerCatalog } from '@/data/uavCatalog';
 import { evaluateUav, type UavResult, type UavSolverInput } from '@/domain/uavSolver';
@@ -73,33 +74,45 @@ function Uav3DScene({ input, best }: UavSceneProps) {
   const throttle = Math.min(Math.max(best?.throttlePct ?? 0, 0), 100);
   const battery = Math.max(0, 100 - input.reservePct);
   const sceneState = best?.feasible ? 'uav-state-ok' : 'uav-state-alert';
+  const spinSeconds = Math.max(0.18, 0.95 - throttle * 0.007);
+  const tiltDeg = best?.feasible ? -6 : -13;
 
   return (
-    <div className={`uav-visual-card uav-3d-card ${sceneState}`}>
+    <div
+      className={`uav-visual-card uav-3d-card ${sceneState}`}
+      style={{
+        '--throttle': throttle,
+        '--rotor-speed': `${spinSeconds}s`,
+        '--uav-tilt': `${tiltDeg}deg`,
+      } as CSSProperties}
+    >
       <div className="uav-visual-head">
         <div>
-          <span>3D</span>
+          <span>3D animado</span>
           <h3>Estado físico do UAV</h3>
         </div>
         <strong>{throttle.toFixed(0)}% throttle</strong>
       </div>
 
-      <div className="uav-scene" aria-label="Cena 3D do UAV">
+      <div className="uav-scene" aria-label="Cena 3D animada do UAV">
+        <div className="uav-sky-grid" />
         <div className="uav-ground" />
-        <div className="uav-frame-3d">
-          <div className="uav-body-3d">
-            <span />
-          </div>
-          {rotorSlots.map((slot) => {
-            const angle = (360 / input.rotorCount) * slot;
-            return (
-              <div className="uav-arm-3d" key={slot} style={{ transform: `rotateZ(${angle}deg)` }}>
-                <div className="uav-rotor-3d">
-                  <span />
+        <div className="uav-frame-hover">
+          <div className="uav-frame-3d">
+            <div className="uav-body-3d">
+              <span />
+            </div>
+            {rotorSlots.map((slot) => {
+              const angle = (360 / input.rotorCount) * slot;
+              return (
+                <div className="uav-arm-3d" key={slot} style={{ transform: `rotateZ(${angle}deg)` }}>
+                  <div className="uav-rotor-3d">
+                    <span />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
         <div className="uav-thrust-column" style={{ height: `${42 + throttle * 0.55}%` }} />
       </div>

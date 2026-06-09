@@ -127,14 +127,29 @@ select {
   padding: 18px 0 10px;
 }
 
-.console-header h2 {
+.module-page-header {
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.console-header h2,
+.module-page-header h2 {
   color: var(--brand-blue-700);
   font-size: clamp(1.65rem, 3.2vw, 2.75rem);
   line-height: 1;
   margin: 0;
 }
 
-.console-header p {
+.console-header p,
+.module-page-header p {
   color: #40536a;
   line-height: 1.55;
   margin: 10px 0 0;
@@ -545,7 +560,7 @@ select {
 }
 
 .simulation-module {
-  padding: 10px 0 16px;
+  padding: 14px 0 16px;
 }
 
 .simulation-module.compact {
@@ -561,7 +576,7 @@ select {
   display: flex;
   gap: 14px;
   justify-content: space-between;
-  padding: 12px 14px;
+  padding: 14px;
 }
 
 .module-strip h2 {
@@ -972,7 +987,7 @@ select {
   border-radius: 10px;
   display: grid;
   gap: 12px;
-  min-height: 280px;
+  min-height: 300px;
   padding: 12px;
 }
 
@@ -1049,11 +1064,22 @@ select {
   border: 1px solid var(--line);
   border-radius: 10px;
   display: grid;
-  min-height: 178px;
+  min-height: 214px;
   overflow: hidden;
   perspective: 760px;
   place-items: center;
   position: relative;
+}
+
+.uav-sky-grid {
+  background-image:
+    linear-gradient(rgba(0, 63, 125, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 63, 125, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  inset: 0;
+  opacity: 0.45;
+  position: absolute;
+  transform: rotateX(64deg) translateY(28px);
 }
 
 .uav-ground {
@@ -1067,13 +1093,19 @@ select {
   width: 76%;
 }
 
+.uav-frame-hover {
+  animation: uav-hover 2.6s ease-in-out infinite;
+  position: relative;
+  transform-style: preserve-3d;
+  z-index: 3;
+}
+
 .uav-frame-3d {
   height: 106px;
   position: relative;
-  transform: rotateX(60deg) rotateZ(-24deg);
+  transform: rotateX(60deg) rotateY(var(--uav-tilt, -6deg)) rotateZ(-24deg);
   transform-style: preserve-3d;
   width: 106px;
-  z-index: 2;
 }
 
 .uav-body-3d {
@@ -1132,6 +1164,7 @@ select {
 
 .uav-rotor-3d span,
 .uav-rotor-3d::after {
+  animation: rotor-spin var(--rotor-speed, 0.5s) linear infinite;
   background: rgba(0, 63, 125, 0.42);
   border-radius: 999px;
   content: "";
@@ -1148,6 +1181,7 @@ select {
 }
 
 .uav-thrust-column {
+  animation: thrust-pulse 1.15s ease-in-out infinite;
   background: linear-gradient(180deg, rgba(31, 143, 95, 0.22), rgba(31, 143, 95, 0.02));
   border-radius: 999px 999px 0 0;
   bottom: 18px;
@@ -1161,6 +1195,44 @@ select {
 
 .uav-state-alert .uav-thrust-column {
   background: linear-gradient(180deg, rgba(189, 45, 54, 0.22), rgba(189, 45, 54, 0.02));
+}
+
+.uav-state-alert .uav-frame-hover {
+  animation-duration: 1.55s;
+}
+
+@keyframes uav-hover {
+  0%,
+  100% {
+    transform: translateY(0) rotateZ(-0.6deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotateZ(0.8deg);
+  }
+}
+
+@keyframes rotor-spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes thrust-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: rotateX(64deg) scaleY(0.92);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: rotateX(64deg) scaleY(1.08);
+  }
 }
 
 .uav-scene-metrics {
@@ -1271,6 +1343,7 @@ select {
   }
 
   .console-header,
+  .module-page-header,
   .console-metrics,
   .console-details,
   .technical-grid,
