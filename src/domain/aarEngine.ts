@@ -132,10 +132,15 @@ export function simulateAar(input: AarSimulationInput): AarSimulationResult {
   }
 
   const success = aircraft.every((item) => item.done);
+  const failedByBingo = aircraft.some((item) => item.bingo);
   events.push({
     timeMin,
     type: success ? 'done' : 'timeout',
-    message: success ? 'Operação AAR concluída.' : 'Operação AAR interrompida por limite operacional.',
+    message: success
+      ? 'Operação AAR concluída.'
+      : failedByBingo
+        ? 'Operação AAR interrompida por bingo fuel.'
+        : 'Operação AAR interrompida por limite de tempo.',
   });
 
   return {

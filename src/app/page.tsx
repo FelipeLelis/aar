@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { AppHeader } from '@/components/AppHeader';
+import { CombinedMissionPanel } from '@/components/CombinedMissionPanel';
 import { IntegrationMap } from '@/components/IntegrationMap';
 import { MetricCard } from '@/components/MetricCard';
 import { aarCapabilities, integrationMap, roadmap } from '@/data/platform';
@@ -75,6 +76,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <CombinedMissionPanel />
 
       <section className="section technical-grid" id="modelo">
         <article className="panel">
