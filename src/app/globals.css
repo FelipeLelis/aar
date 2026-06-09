@@ -170,6 +170,81 @@ select {
   color: var(--muted);
 }
 
+.console-board,
+.console-section,
+.console-details {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+}
+
+.console-board {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.console-board .console-header {
+  border-bottom: 1px solid var(--line);
+  padding: 2px 0 14px;
+}
+
+.console-metrics {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.console-block,
+.console-section {
+  display: grid;
+  gap: 12px;
+}
+
+.console-block {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.console-section {
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.console-block-head {
+  align-items: end;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.console-block-head h3 {
+  color: var(--ink);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.console-block-head p {
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 520px;
+}
+
+.console-details {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(320px, 1.05fr);
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.panel-spacer {
+  margin-top: 14px;
+}
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -274,8 +349,8 @@ select {
   box-shadow: var(--shadow-soft);
   display: grid;
   gap: 10px;
-  min-height: 190px;
-  padding: 16px;
+  min-height: 158px;
+  padding: 14px;
 }
 
 .module-card span {
@@ -305,10 +380,9 @@ select {
 }
 
 .combined-panel {
-  background: #fff;
+  background: var(--panel-soft);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: var(--shadow-soft);
   display: grid;
   gap: 12px;
   grid-template-columns: minmax(240px, 0.36fr) minmax(0, 1fr);
@@ -316,7 +390,7 @@ select {
 }
 
 .combined-status {
-  background: var(--panel-soft);
+  background: #fff;
   border: 1px solid var(--line);
   border-left: 4px solid var(--brand-blue);
   border-radius: 8px;
@@ -417,10 +491,10 @@ select {
 }
 
 .metric {
-  background: #fff;
+  background: var(--panel-soft);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  min-height: 128px;
+  border-radius: 8px;
+  min-height: 112px;
   padding: 12px;
 }
 
@@ -775,6 +849,17 @@ select {
   font-size: 0.9rem;
   font-weight: 700;
   padding: 10px 12px;
+}
+
+.scope-list.compact span {
+  display: grid;
+  gap: 4px;
+  line-height: 1.42;
+}
+
+.scope-list.compact strong {
+  color: var(--ink);
+  display: block;
 }
 
 .uav-module {
@@ -1186,6 +1271,8 @@ select {
   }
 
   .console-header,
+  .console-metrics,
+  .console-details,
   .technical-grid,
   .module-picker,
   .combined-panel,

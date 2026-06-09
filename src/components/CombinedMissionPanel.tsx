@@ -16,16 +16,15 @@ export function CombinedMissionPanel() {
   const summary = buildSampleMissionSummary();
 
   return (
-    <section className="section">
-      <div className="section-header">
+    <section className="console-section">
+      <div className="console-block-head">
         <div>
           <p className="eyebrow">Missão combinada</p>
-          <h2>AAR e UAV sob a mesma ontologia</h2>
+          <h3>AAR e UAV sob a mesma ontologia</h3>
         </div>
         <p>
-          Exemplo técnico gerado pelos novos módulos de domínio. Ele compara
-          combustível, bateria, restrições e recomendações sem carregar os
-          simuladores completos.
+          Leitura amostral dos novos módulos de domínio: energia, restrições e
+          recomendações em uma visão única.
         </p>
       </div>
 
